@@ -24,7 +24,7 @@ class TransactionController extends Controller
 
     public function store(TransactionStoreRequest  $request){
 
-       
+
         $date = time("i");
 
         $numbers = 'ABCDEFGHIJKLMNOPQRSTUWYZabcdefghijklmnopqrstuvwyzx' . $date;
@@ -59,7 +59,8 @@ class TransactionController extends Controller
          */
     if ($account->balance >= $request->input('amount') && $account->balance != 0) {
 
-    //   $Lasttranx = Transaction::where('user_id', Auth::user()->id)->orderBy('created_at', 'DESC')->first();
+
+    //  $Lasttranx = Transaction::where('user_id', Auth::user()->id)->latest()->first();
 
     // if ($Lasttranx->reference != $refNumberWithTimeStamp) {
 
@@ -103,7 +104,7 @@ class TransactionController extends Controller
 
 
 
-    public function updateBalanceRecordOfTheSender($account){
+    protected function updateBalanceRecordOfTheSender($account){
 
         Balance::where('account_id', $account->id)->update([
             'balance' => $account->balance - $this->amount,
@@ -112,7 +113,7 @@ class TransactionController extends Controller
     }
 
 
-    public function updateBalanceRecordOfTheReciever(){
+    protected function updateBalanceRecordOfTheReciever(){
 
 
         Balance::where('account_id', $this->accountNumber->id)->update([
@@ -122,7 +123,7 @@ class TransactionController extends Controller
     }
 
 
-    public function updateAccountDetailsOfTheReceiver(){
+    protected  function updateAccountDetailsOfTheReceiver(){
 
         Account::where('account_number', $this->accountNumber->account_number)->update([
 
@@ -133,7 +134,7 @@ class TransactionController extends Controller
     }
 
 
-    public function updateAccountDetailsOfTheSender($account){
+    protected function updateAccountDetailsOfTheSender($account){
 
         Account::where('user_id', Auth::user()->id)->update([
             'balance' => $account->balance - $this->amount,
