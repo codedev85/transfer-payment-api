@@ -8,6 +8,7 @@ use App\Account;
 use App\Transaction;
 use App\Balance;
 use Carbon\Carbon;
+use App\Http\Requests\TransactionStoreRequest;
 
 class TransactionController extends Controller
 {
@@ -21,9 +22,9 @@ class TransactionController extends Controller
     }
 
 
-    public function store(Request $request){
+    public function store(TransactionStoreRequest  $request){
 
-
+       
         $date = time("i");
 
         $numbers = 'ABCDEFGHIJKLMNOPQRSTUWYZabcdefghijklmnopqrstuvwyzx' . $date;
